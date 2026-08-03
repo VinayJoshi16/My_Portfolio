@@ -140,10 +140,11 @@ export const FALLBACK_STACK = [
     type: "studying",
     items: [
       { _id: "st_tensorflow", name: "TensorFlow.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg", type: "studying", sortIndex: 1, hide: false },
-      { _id: "st_gemini", name: "Gemini AI", icon: "https://www.gstatic.com/lamda/images/gemini_sparkle_v002d472bce31c74.svg", type: "studying", sortIndex: 2, hide: false },
+      { _id: "st_gemini", name: "Gemini AI", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/googlegemini.svg", type: "studying", sortIndex: 2, hide: false },
       { _id: "st_cloud_ai", name: "Cloud AI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg", type: "studying", sortIndex: 3, hide: false },
       { _id: "st_cplusplus", name: "C++", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg", type: "studying", sortIndex: 4, hide: false },
       { _id: "st_java", name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", type: "studying", sortIndex: 5, hide: false },
+      { _id: "st_claude_ai", name: "Claude AI", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/claude.svg", type: "studying", sortIndex: 6, hide: false },
     ],
   },
 ];
