@@ -44,7 +44,7 @@ const app = new Hono<Env>()
       return c.json({ message: "Invalid Email or Password" }, status.FORBIDDEN);
     }
     await sendTokens(c, user._id.toString());
-    return c.json({ message: "Welcome NEVO." }, status.OK);
+    return c.json({ message: "Welcome Vinay." }, status.OK);
   })
   .post("/logout", authMiddleware, async (c) => {
     deleteCookie(c, "accessToken", {

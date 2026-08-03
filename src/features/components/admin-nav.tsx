@@ -22,7 +22,6 @@ const navItems = [
     href: "/admin/experience",
     match: (p: string) => p === "/admin/experience",
   },
-  { label: "BLOG", href: "/admin/blog", match: (p: string) => p.startsWith("/admin/blog") },
   { label: "RESUME", href: "/admin/resume", match: (p: string) => p === "/admin/resume" },
   {
     label: "PASSWORD",
