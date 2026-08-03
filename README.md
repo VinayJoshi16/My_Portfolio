@@ -3,7 +3,7 @@
 Welcome to the source code for my personal portfolio! This project showcases my skills, experience, and the applications I have built. It is designed to be highly interactive, fast, and fully responsive, offering a modern user experience with a clean aesthetic.
 
 ## 🚀 Live Demo
-You can view the live portfolio here: **[Your Vercel Link Here]**
+You can view the live portfolio here: **[my-portfolio-eta-six-31.vercel.app]**
 
 ## ✨ Key Features
 - **Dynamic Projects Showcase**: Detailed views of full-stack projects, complete with links to live demos, source code, and comprehensive feature descriptions.
