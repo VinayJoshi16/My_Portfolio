@@ -1,0 +1,18 @@
+import { Metadata } from "next";
+
+import Cursor from "@/src/components/cursor";
+import ResetPasswordForm from "@/src/features/auth/components/reset-password-form";
+
+export const metadata: Metadata = {
+  title: "RESET PASSWORD",
+};
+
+export default async function Page({ params }: { params: Promise<{ token: string }> }) {
+  const { token } = await params;
+  return (
+    <div className="grid h-screen place-items-center">
+      <ResetPasswordForm token={token} />
+      <Cursor />
+    </div>
+  );
+}

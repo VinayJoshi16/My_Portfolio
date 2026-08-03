@@ -1,0 +1,70 @@
+"use client";
+
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import { PenLine } from "lucide-react";
+
+import AdminSectionButton from "@/src/components/admin-section-button";
+import { LoaderSmall } from "@/src/components/loader-small";
+import SectionTitle from "@/src/components/section-title";
+import { cn } from "@/src/lib/utils";
+
+import { useGetExperience } from "./api/use-get-experience";
+import { useNewExperience } from "./state/use-new-experience";
+import { useOpenExperience } from "./state/use-open-experience";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+export default function ExperienceSection() {
+  const { data: experience = [], isLoading } = useGetExperience(true);
+  const { onOpen } = useNewExperience();
+  const { onOpen: onOpenEdit } = useOpenExperience();
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center">
+        <LoaderSmall className="py-20" />
+      </div>
+    );
+  return (
+    <section>
+      <div className="container">
+        <div className="mb-10 flex items-center justify-between">
+          <SectionTitle title="Experience" className="mb-0" />
+          <AdminSectionButton onClick={onOpen}>New Experience</AdminSectionButton>
+        </div>
+
+        {experience.length === 0 && (
+          <p className="dark text-muted-foreground py-10 text-center text-3xl">
+            There&apos;s no experience added yet
+          </p>
+        )}
+
+        <div className="grid gap-6">
+          {experience.map((item) => (
+            <div
+              className={cn(
+                "experience-item flex items-center justify-between",
+                item.hide && "opacity-50 grayscale"
+              )}
+              key={item._id}
+            >
+              <div>
+                <p className="cursor text-white/80 md:text-xl">{item.company}</p>
+                <p className="cursor mt-3.5 mb-2.5 text-lg md:text-4xl">{item.title}</p>
+                <p className="cursor text-sm text-white/80 md:text-lg">
+                  {item.startDate} - {item.endDate}
+                </p>
+              </div>
+
+              <button onClick={() => onOpenEdit(item._id)} className="no-cursor cursor-none">
+                <PenLine className="cursor size-7 md:size-8" />
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

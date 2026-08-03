@@ -1,0 +1,41 @@
+import { blogType } from "@/src/models/blog-model";
+import { expType } from "@/src/models/experience-model";
+import { projectType } from "@/src/models/project-model";
+
+export type Variant =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "warning"
+  | "danger"
+  | "info"
+  | "light"
+  | "dark"
+  | "link"
+  | "no-color";
+
+export interface IProject {
+  _id: string;
+  name: string;
+  year: number;
+  techStack: string[];
+  features: string[];
+  thumbnail: string;
+  slug?: string | null;
+  liveUrl?: string | null;
+  sourceCode?: string | null;
+  description: string;
+}
+
+export type ProjectResponse = Omit<projectType, "createdAt" | "updatedAt" | "slug"> & {
+  _id: string;
+  slug: string;
+};
+
+export type PostResponse = blogType & {
+  _id: string;
+};
+
+export type ExperienceResponse = Omit<expType, "createdAt"> & {
+  _id: string;
+};

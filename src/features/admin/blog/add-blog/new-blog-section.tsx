@@ -1,0 +1,49 @@
+"use client";
+
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import { useRouter } from "next/navigation";
+import { z } from "zod";
+
+import SectionTitle from "@/src/components/section-title";
+import { Button } from "@/src/components/ui/button";
+import { blogFormDefaults, blogSchema } from "@/src/definitions/blog-validation";
+import { useCreatePost } from "@/src/features/admin/blog/api/use-create-post";
+import BlogForm from "@/src/features/admin/blog/blog-form";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+type FormValues = z.input<typeof blogSchema>;
+
+export default function NewBlogSection() {
+  const { mutate: createPost, isPending } = useCreatePost();
+  const router = useRouter();
+
+  const onSubmit = (values: FormValues) => {
+    createPost(values, {
+      onSuccess: () => {
+        router.push("/admin/blog");
+      },
+    });
+  };
+
+  return (
+    <section>
+      <div className="container">
+        <div className="mb-10 flex items-center justify-between">
+          <SectionTitle title="Add new blog" className="mb-0" />
+          <Button
+            className="dark flex items-center justify-center text-lg font-semibold"
+            variant={"outline"}
+            onClick={() => router.back()}
+          >
+            Cancel
+          </Button>
+        </div>
+
+        <BlogForm onSubmit={onSubmit} disabled={isPending} defaultValues={blogFormDefaults} />
+      </div>
+    </section>
+  );
+}

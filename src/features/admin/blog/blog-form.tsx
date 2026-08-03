@@ -1,0 +1,180 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeClosed, Trash } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+
+import { Button } from "@/src/components/ui/button";
+import { Field } from "@/src/components/ui/field";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/src/components/ui/form";
+import { Input } from "@/src/components/ui/input";
+import { InputTags } from "@/src/components/ui/tags-input";
+import { Textarea } from "@/src/components/ui/textarea";
+import { blogFormValues, blogSchema } from "@/src/definitions/blog-validation";
+import Editor from "@/src/features/code-editor/editor";
+import Preview from "@/src/features/code-editor/preview";
+
+type Props = {
+  id?: string;
+  defaultValues: blogFormValues;
+  onSubmit: (values: blogFormValues) => void;
+  onDelete?: () => void;
+  disabled?: boolean;
+};
+
+export default function BlogForm({ id, defaultValues, onSubmit, onDelete, disabled }: Props) {
+  const [doc, setDoc] = useState<string>(defaultValues.doc);
+  const form = useForm<blogFormValues>({
+    resolver: zodResolver(blogSchema),
+    defaultValues: defaultValues,
+  });
+
+  useEffect(() => {
+    form.setValue("doc", doc, { shouldDirty: true });
+  }, [doc, form]);
+
+  const [showPreview, setShowPreview] = useState<boolean>(false);
+  const handleChangeDoc = useCallback((newDoc: string) => setDoc(newDoc), []);
+
+  const handleSubmit = (values: blogFormValues) => {
+    onSubmit(values);
+  };
+
+  const handleDelete = () => {
+    onDelete?.();
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="dark space-y-4">
+        <FormField
+          name="title"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input {...field} disabled={disabled} placeholder="e.g. first blog post" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="summary"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Summary</FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  disabled={disabled}
+                  placeholder="what is this all about"
+                  className="min-h-30"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="image"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Image</FormLabel>
+              <FormControl>
+                <Input
+                  type="file"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    field.onChange(file ?? new File([], ""));
+                  }}
+                  name={field.name}
+                  ref={field.ref}
+                  disabled={disabled}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="tags"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Tags</FormLabel>
+              <FormControl>
+                <InputTags {...field} disabled={disabled} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="grid min-h-100 gap-2">
+          <Editor initialDoc={doc} onChange={handleChangeDoc} disabled={disabled} />
+          <Button
+            type="button"
+            onClick={() => setShowPreview((s) => !s)}
+            className="text-white md:text-xl md:font-semibold"
+          >
+            {showPreview ? "Hide Preview" : "Show Preview"}
+          </Button>
+          {showPreview && <Preview doc={doc} />}
+        </div>
+
+        <div className="flex justify-end gap-4">
+          {!!id && (
+            <Button
+              className="text-white"
+              type="button"
+              variant="destructive"
+              disabled={disabled}
+              onClick={handleDelete}
+            >
+              <Trash className="size-4" />
+            </Button>
+          )}
+
+          <Controller
+            name="hide"
+            control={form.control}
+            render={({ field }) => (
+              <Field orientation="horizontal" className="justify-between">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  disabled={disabled}
+                  onClick={() => field.onChange(!field.value)}
+                  className="relative"
+                >
+                  {field.value ? (
+                    <EyeClosed className="text-muted-foreground size-5" />
+                  ) : (
+                    <Eye className="text-foreground size-5" />
+                  )}
+                </Button>
+              </Field>
+            )}
+          />
+          <Button type="submit" className="text-white" disabled={disabled}>
+            {id ? "Save Changes" : "Submit blog"}
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+}
