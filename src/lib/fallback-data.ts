@@ -25,7 +25,7 @@ export const FALLBACK_PROJECTS = [
     name: "NeighbourHub",
     year: 2026,
     liveUrl: "https://hyperlocal-community-platform.vercel.app/",
-    sourceCode: "https://github.com/VinayJoshi16/NeighbourHub",
+    sourceCode: "https://github.com/VinayJoshi16/Hyperlocal-community-platform",
     description: "NeighbourHub is a real-time hyperlocal community platform that brings neighborhoods closer together. It enables live group chats, polls, notice boards, and geolocation-based emergency alerts to keep local communities safe and informed.",
     features: [
       "Architected real-time communication using Socket.IO / WebSockets for live group chats and community polls.",
@@ -44,7 +44,7 @@ export const FALLBACK_PROJECTS = [
     name: "Adaptive Learning Platform",
     year: 2026,
     liveUrl: "https://adaptive-learning-path-50.vercel.app/",
-    sourceCode: "https://github.com/VinayJoshi16/Adaptive-Learning-Platform",
+    sourceCode: "https://github.com/VinayJoshi16/adaptive-learning-path-50",
     description: "A state-of-the-art adaptive learning platform leveraging client-side Machine Learning. The platform analyzes student engagement in real-time and dynamically structures learning paths based on comprehension metrics.",
     features: [
       "Engineered an adaptive learning algorithm generating custom education paths based on historical progress.",
@@ -64,7 +64,7 @@ export const FALLBACK_PROJECTS = [
     name: "Bike Rental System",
     year: 2025,
     liveUrl: "https://ip-address-tracker-yihc.vercel.app/",
-    sourceCode: "https://github.com/VinayJoshi16/Bike-Rental-System",
+    sourceCode: "https://github.com/VinayJoshi16/Rental-System-",
     description: "A comprehensive booking and rental management system. The platform streamlines vehicle availability, handles reservations under high concurrent load, and provides administrators with real-time insights.",
     features: [
       "Developed high-throughput RESTful APIs for booking, authentication, and inventory, successfully handling 100+ concurrent operations.",
